@@ -1,4 +1,9 @@
-# Business Requirement Document
+# Business Requirement Document - KKU'3S
+**Document Version**: V0.1
+**Last Updated Date**: 2026-07-30
+**Editor**: Wu Xun, Yahyaa, Tor
+**Status**: *Draft* / **In Progress** / *Final*
+
 
 ## Part 1: Project Overview 
 ### 1.1 Project Background
@@ -37,3 +42,4 @@ Collect aggregated user emotional feedback for platform trading rules, commodity
 
 
 ## Part 3: Team Criteria for Model Shipment & Reasoning
+> **TODO**: This section will be jointly discussed and formulated by the entire project team after all model training and evaluation experiments are completed.

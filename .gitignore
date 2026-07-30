@@ -1,0 +1,36 @@
+# Python Virtual Environment
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 原始数据集、模型权重、wandb缓存日志（不上传云端仓库）
+*.bin
+*.pth
+*.ckpt
+02_Dataset/raw/
+wandb/
+logs/
+
+# Mac系统垃圾文件
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
