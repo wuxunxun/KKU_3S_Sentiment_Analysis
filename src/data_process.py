@@ -20,6 +20,7 @@ def check_dataset_structure(dataset, subset, max_records=10):
         return None
 
     print(f"------------------------------------------------")
+    print(f"Label names: {dataset['train'].features['label'].names}")
     print(f"Checking structure of the '{subset}' subset...")
     df = pd.DataFrame(dataset[subset])
 
