@@ -1,7 +1,8 @@
-# shipping_criteria.md
-## Document Overview
+# Shipping Criteria Overview
 Applicable Client: Browser Web
+
 Scope: Release criteria for sentiment analysis model, chat content safety monitoring and user behavior risk prediction.
+
 
 ## 1. Module Release Acceptance Criteria (Primary Metrics for Current Phase)
 ### 1.1 Metrics for Sentiment Module
