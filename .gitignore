@@ -1,36 +1,27 @@
-# Python Virtual Environment
-venv/
-env/
+# Python cache files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
+*.ipynb_checkpoints
 
-# 原始数据集、模型权重、wandb缓存日志（不上传云端仓库）
+# Local python virtual environment
+venv/
+env/
+.env
+
+# Generated dataset, prediction outputs and model weights
+*.csv
+*.parquet
+*.json
+*.txt
 *.bin
+*.pt
 *.pth
-*.ckpt
-02_Dataset/raw/
-wandb/
-logs/
 
-# Mac系统垃圾文件
+# Local cache for Weights & Biases experiment logs
+wandb/
+
+# Operating system hidden junk files
 .DS_Store
-.AppleDouble
-.LSOverride
-._*
+Thumbs.db
