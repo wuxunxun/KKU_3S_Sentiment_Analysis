@@ -28,6 +28,13 @@ Massive user comments, commodity reviews and post texts will be generated during
 4. **End Users:** All teachers and students enrolled in Khon Kaen University, certified campus merchants, on-campus housing landlords.
 5. **Target Market Segment:** Campus idle commodity trading market, a subdivision of localized campus e-commerce.
 
+| Category | Definition |
+|---|---|
+| **Customer / Purchasing Party** | Administrative Department of Khon Kaen University and platform operation administrators |
+| **End Users** | KKU students, teachers, certified campus merchants, and on-campus housing landlords |
+| **Target Market Segment** | Campus second-hand / idle commodity trading market |
+| **Primary AI Users** | Platform administrators and downstream platform services that consume sentiment predictions |
+
 
 ## Part 2: Business Values Overview 
 1. **Content Risk Control**
