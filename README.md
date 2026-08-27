@@ -133,15 +133,8 @@ For more details, see [Model Shipping Criteria](docs/shipping_criteria.md).
 
 This project is developed collaboratively by:
 
-- **Xun Wu**
-- **Muhammad Yahyaa**
-- **Tor**
-
-| Notebook | Team Member |
-|---|---|
-| `milestone1_MuhammadYahyaa.ipynb` | Muhammad Yahyaa |
-| `milestone1_TOR.ipynb` | Tor |
-| `milestone1_XUNWU.ipynb` | Xun Wu |
-
+- **Xun Wu** [>> See Notebook](milestone1_XUNWU.ipynb)
+- **Muhammad Yahyaa** [>> See Notebook](milestone1_MuhammadYahyaa.ipynb)
+- **Tor** [>> See Notebook](milestone1_TOR.ipynb)
 
 ---
