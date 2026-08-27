@@ -1,37 +1,126 @@
-# Shipping Criteria Overview
-Applicable Client: Browser Web
-
-Scope: Release criteria for sentiment analysis model, chat content safety monitoring and user behavior risk prediction.
+# Model Shipping Criteria — KKU'3S Sentiment Analysis
 
 
-## 1. Module Release Acceptance Criteria (Primary Metrics for Current Phase)
-### 1.1 Metrics for Sentiment Module
-- **Sentiment detection model** (3-class: Positive / Neutral / Negative): Accuracy ≥ ____%, Recall ≥ ____%, F1 ≥ ____%
+---
 
-- Additional model metrics for hate & offensive content (*Not in current scope, reserved for reference)
-    - Hate Detection: Accuracy ≥ ____%, Recall ≥ ____%, F1 ≥ ____%
-    - Offensive Detection: Accuracy ≥ ____%, Recall ≥ ____%, F1 ≥ ____%
-    - Irony Detection: Accuracy ≥ ____%, Recall ≥ ____%, F1 ≥ ____%
+## 1. Purpose
 
-- Detection quantitative indicators (*Not in current scope, reserved for reference)
-    - Detection rate of explicit violating text ≥ ____%
-    - Detection rate of homophones, split characters and variant implicit violating content ≥ ____%
-    - False positive rate of normal friendly conversations misjudged as violation ≤ ____%
+These criteria define how the team will determine whether a candidate sentiment model is suitable for deployment on the KKU'3S platform.
 
-### 1.2 Chat / Post / Comment Content Safety Monitoring Standard
-(Insulting, defamatory, obscene and harmful remarks)
-Monitoring Scope: Personal insult, malicious defamation and attack, vulgar pornographic content, malicious provocative remarks.
+The criteria are derived from the business values defined in the **KKU'3S Business Requirement Document**. All models will be evaluated on the same TweetEval test set.
 
-> **2.1 Enforcement Policy**
-> 1. Confirmed high-risk violation: Directly block output, remind user of content violation and retain records
-> 2. Borderline suspicious content: Mark risk, store records in backend for manual review without direct blocking
->
-> **2.2 Test Cases**
-> 1. Direct abusive language and personal attack text
-> 2. Sarcastic and implied defamatory statements
-> 3. Vulgar and explicit obscene expressions
-> 4. Violating content that users try to bypass detection with symbols or homophones *(Extra supporting capability required)*
+---
 
-### 1.3 General Function, Performance & Compatibility Release Criteria
-(*Not in current scope, reserved for reference)
-To be supplemented later
+## 2. Ready-to-Ship Criteria
+
+### Criterion 1 — Overall Sentiment Performance
+
+**Derived from:**  
+Seller Reputation Quantification + User Experience Improvement
+
+**Requirement:**  
+The model should perform well across **negative, neutral, and positive** sentiment classes without being dominated by the majority class.
+
+**Primary Metric:** Macro F1
+
+**Calculation:**
+
+$$
+F1_c = \frac{2 \times Precision_c \times Recall_c}
+{Precision_c + Recall_c}
+$$
+
+$$
+Macro\ F1 =
+\frac{F1_{negative}+F1_{neutral}+F1_{positive}}{3}
+$$
+
+**Why:**  
+The TweetEval test set is class-imbalanced. Macro F1 gives equal importance to all sentiment classes, making it more appropriate than accuracy for evaluating balanced sentiment performance.
+
+**Shipping expectation:**  
+A candidate should achieve a Macro F1 that is competitive with or better than the baseline.
+
+---
+
+### Criterion 2 — Negative Detection & Robustness
+
+**Derived from:**  
+Content Risk Control + Seller Reputation Quantification + User Experience Improvement
+
+**Requirement:**  
+The model should reliably detect negative feedback while maintaining stable performance across different types of user-generated text.
+
+#### 2.1 Negative Sentiment Detection
+
+**Primary Metric:** Negative Recall
+
+**Calculation:**
+
+$$
+Negative\ Recall =
+\frac{TP_{negative}}
+{TP_{negative}+FN_{negative}}
+$$
+
+**Why:**  
+For Content Risk Control, missing an actual negative comment may prevent potentially problematic content from being identified.
+
+---
+
+#### 2.2 Robustness Across Text Characteristics
+
+**Metrics:**
+
+- Macro F1
+- Negative Recall
+
+Performance will be evaluated across relevant data slices:
+
+| Metadata | Slices |
+|---|---|
+| Text Length | Short / Long |
+| Emoji | Emoji / No Emoji |
+| Hashtag | Hashtag / No Hashtag |
+| Mention | Mention / No Mention |
+
+**Why:**  
+User-generated content can vary in length and structure. A model should not achieve strong overall performance while failing on a specific type of text.
+
+**Shipping expectation:**  
+The candidate should not show severe performance degradation on important data slices compared with its overall performance and the baseline.
+
+---
+
+### Criterion 3 — Prediction Reliability
+
+**Derived from:**  
+Content Risk Control + Platform Content Management
+
+**Requirement:**  
+The model should provide confidence information that can support automated processing and human review.
+
+**Metrics:**
+
+- Confidence Score
+- Calibration analysis / Expected Calibration Error (ECE), if applicable
+
+**Why:**  
+Low-confidence predictions can be escalated to platform administrators instead of being handled automatically.
+
+**Operational Rule:**
+
+```text
+Prediction
+    ↓
+Confidence Score
+    ↓
+ ┌───────────────────┐
+ │ High Confidence   │ → Automated Handling
+ └───────────────────┘
+          │
+          │ Low Confidence
+          ↓
+ ┌───────────────────┐
+ │ Human Review      │
+ └───────────────────┘
