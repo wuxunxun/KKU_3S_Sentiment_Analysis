@@ -1,0 +1,4 @@
+rule,value
+word_count_lower_quantile,12.0
+word_count_upper_quantile,18.0
+uppercase_ratio_threshold,0.1

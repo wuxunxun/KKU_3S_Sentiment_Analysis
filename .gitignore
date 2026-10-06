@@ -25,3 +25,9 @@ wandb/
 # Operating system hidden junk files
 .DS_Store
 Thumbs.db
+
+# Include final evaluation results
+!/results/final_run/*.csv
+
+# Include dependency specification
+!/requirements.txt
