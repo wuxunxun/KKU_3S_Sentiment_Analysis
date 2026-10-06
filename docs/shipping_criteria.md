@@ -99,7 +99,7 @@ Groups can overlap. Do not add their error counts or average their scores into a
 
 **Straightforward replacement:** Match or exceed baseline on Macro F1, negative recall and negative precision, with an improvement in at least one. Review per-class results and metadata regressions before accepting the replacement.
 
-**Trade-off decision:** If core metrics move in opposite directions, explain the changes in missed negatives, false alerts and relevant groups. Justify the choice using the intended use and the team's priorities. The criteria do not automatically accept that exchange. **Retaining baseline is a valid outcome** when no candidate provides a clear improvement.
+**Trade-off decision:** If core metrics move in opposite directions, explain the changes in missed negatives, false alerts and relevant groups. Justify the choice using the intended use and the team's priorities. The criteria do not automatically accept that exchange. **Choosing baseline is a valid outcome** when no candidate provides a clear improvement and the production model performs worse.
 
 **Production comparison:** Production has only negative/positive outputs. Compare it with candidates only under the same PN protocol, after verifying its label mapping and tokenizer compatibility. Do not compare its PN score directly with native three-class scores.
 
