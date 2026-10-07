@@ -17,7 +17,7 @@ This project develops and evaluates a sentiment analysis module to classify user
 - **Neutral**
 - **Positive**
 
-The objective is to evaluate several sentiment classification models, analyze their performance across different textual characteristics, and select a preferred model for the next validation stage of the KKU'3S platform.
+The objective is to evaluate several sentiment classification models, analyze their performance across different textual characteristics, and select the final sentiment classification model for the KKU'3S platform.
 
 ---
 
@@ -29,7 +29,7 @@ The project aims to:
 2. Compare candidate models against the current reference baseline.
 3. Evaluate model performance using accuracy, Macro F1, and per-class metrics.
 4. Analyze model behavior across different textual characteristics.
-5. Select a preferred model based on the evaluation results.
+5. Select the final sentiment classification model based on the evaluation results.
 6. Organize the final experimental results for reproducibility.
 
 ---
@@ -275,7 +275,7 @@ Metadata groups may overlap, so each slice is analyzed independently.
 
 ## 11. Model Selection
 
-The model selection considers:
+The final model selection considers:
 
 1. **Macro F1**
 2. **Negative Recall**
@@ -294,15 +294,15 @@ The Baseline is used as the reference model.
 
 ### Final Model Decision
 
-**Twitter-RoBERTa Baseline is retained as the preferred model for the next validation stage.**
+**Twitter-RoBERTa Baseline is selected as the final sentiment classification model for the KKU'3S project.**
 
-The Baseline achieves the highest overall Accuracy and Macro F1.
+The Baseline achieves the highest overall Accuracy and Macro F1 among the evaluated three-class models.
 
 BERTweet is a close alternative, providing higher Negative Precision and slightly better performance on some metadata slices, particularly short texts. However, its overall Macro F1 and Negative Recall are slightly lower than the Baseline.
 
 XLM-R achieves substantially higher Negative Recall, but this comes with a considerable reduction in Negative Precision and overall Macro F1.
 
-Therefore, the available evaluation results do not provide sufficient evidence to replace the Baseline.
+Considering the overall evaluation results and the trade-offs across the analyzed metrics, the Baseline provides the strongest overall performance and is therefore selected as the final model.
 
 ---
 
@@ -393,8 +393,6 @@ The final workflow was executed using GPU acceleration when available.
 - No paired statistical significance test was performed.
 - Benchmark performance alone does not establish deployment readiness.
 
-Further validation using representative KKU'3S data is required before production deployment.
-
 ---
 
 ## 17. Conclusion
@@ -410,6 +408,6 @@ BERTweet is a close alternative, with higher Negative Precision and the highest 
 
 XLM-R achieves the highest Negative Recall at **86.93%**, but its Negative Precision and overall Macro F1 are substantially lower than the Baseline.
 
-Therefore, the project **retains the Twitter-RoBERTa Baseline as the preferred model for the next validation stage**.
+Therefore, the project **selects the Twitter-RoBERTa Baseline as the final sentiment classification model for KKU'3S**.
 
-This decision is based on the TweetEval benchmark and should not be interpreted as final deployment approval. Further validation using representative KKU'3S data and the intended application context is required before production deployment.
+The selection is based on the overall benchmark performance, per-class metrics, Positive/Negative evaluation, and metadata slice analysis. The Baseline provides the strongest overall balance of performance across the evaluated criteria.
