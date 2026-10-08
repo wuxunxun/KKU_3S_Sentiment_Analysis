@@ -1,8 +1,8 @@
 # Business Requirement Document - KKU'3S
-**Document Version**: V0.1
-**Last Updated Date**: 2026-07-30
+**Document Version**: V1.0
+**Last Updated Date**: 2026-10-08
 **Editor**: Wu Xun, Yahyaa, Tor
-**Status**: *In Progress*
+**Status**: *Final evaluation documented; production deployment not performed*
 
 
 ## Part 1: Project Overview 
@@ -12,18 +12,18 @@ This sentiment analysis subsystem is an AI pre-development module customized for
 
 KKU'3S is a campus exclusive second-hand goods trading platform designed for students, teachers, and shop owners of Khon Kaen University, covering core business modules including commodity publishing, online bargaining, idle item transaction, and user comment interaction. **3S** represents **Seek, Share and Swap**.
 
-Massive user comments, commodity reviews and post texts will be generated during platform operation. To automatically judge user emotional tendency (positive / negative feedback), analyze merchant reputation and monitor public opinion risks, an NLP(Natural Language Processing) sentiment analysis system is required as the essential AI capability of the whole platform.
+Massive user comments, commodity reviews and post texts will be generated during platform operation. The subsystem classifies user text as negative, neutral or positive to support sentiment summaries and administrator review. Sentiment alone does not establish abuse, fraud or responsibility; automated moderation or reputation penalties are outside this evaluation.
 
 ### 1.2 Project Purpose & Objectives
-1. **Academic Objective**: Complete course assessment requirements; Adopt two designated models assigned by the course: **twitter-roBERTa-base**, **gpt2-finetuning-sentiment-model-3000-samples**, together with optional candidate models. Conduct inference and testing based on the TweetEval sentiment dataset respectively. Compare overall accuracy, F1 score, inference efficiency and anti-interference ability against noisy tweets among all involved models, select the optimal one to be deployed as the official sentiment analysis module for the KKU'3S campus second-hand trading platform.
+1. **Academic Objective**: Evaluate the assigned baseline and current production model together with two new candidates, BERTweet and XLM-R, using TweetEval sentiment. Compare native three-class performance and a separate adapted PN protocol; inspect per-class results and six metadata features. The final preference is baseline for future integration, with BERTweet as the preferred new candidate and alternative. Inference efficiency, deployment latency and cost are future validation items, not measured outcomes of this evaluation.
 
 2. **Technical Objective**: Build standardized project engineering architecture, proficiently use **Hugging Face** toolkit and **Weights & Biases** for experiment recording.
 
 3. **Delivery Objective**: Deliver fully runnable source code, complete sets of requirement documents, experimental logs saved in W&B, and final multi-model comparison analysis report.
 
 ### 1.3 Related Definitions
-1. **Project Name:** KKU'3S, Full name: Khon Kaen University Student Second-hand Swap System.
-2. **Project Team Members:** Wu Xun, Yahyaa, Tor (Team roles and personal responsibilities will be supplemented in subsequent revisions).
+1. **Project Name:** KKU'3S — Seek, Share and Swap, a campus second-hand trading platform.
+2. **Project Team Members:** Wu Xun, Muhammad Yahyaa, Tor.
 3. **Customer / Purchasing Party:** Administrative Department of Khon Kaen University, platform operation administrators.
 4. **End Users:** All teachers and students enrolled in Khon Kaen University, certified campus merchants, on-campus housing landlords.
 5. **Target Market Segment:** Campus idle commodity trading market, a subdivision of localized campus e-commerce.
@@ -38,10 +38,10 @@ Massive user comments, commodity reviews and post texts will be generated during
 
 ## Part 2: Business Values Overview 
 1. **Content Risk Control**
-Automatically identify negative complaints, abusive remarks and inappropriate posts published by users on the platform, assist platform administrators to quickly carry out content review and risk disposal, maintain a healthy campus trading atmosphere.
+Surface potentially negative feedback for administrator review. Negative sentiment detection is not a validated detector of abusive language, inappropriate content or fraud; any action requires separate review.
 
 2. **Seller Reputation Quantification**
-Calculate the overall emotional score of all commodity reviews under each seller, convert scattered comment texts into intuitive reputation data.
+Provide aggregate sentiment summaries as one possible input to reputation assessment. Sentiment does not establish seller responsibility and must not directly trigger penalties.
 
 3. **User Experience Improvement**
 Collect aggregated user emotional feedback regarding platform trading rules, commodity categories and service experience, provide data basis for the iterative optimization of KKU'3S platform functions.
@@ -80,3 +80,16 @@ All comment texts and public post contents are the input data source of our sent
 5. Buyer receives and inspects the item.
 6. Buyer confirms receipt on the platform. The platform transfers the reserved funds to the seller’s account.
 7. Both sides can submit transaction comments.
+
+## Part 4: Final evaluation scope
+
+The platform functions above describe intended business context; the course deliverable is the offline sentiment evaluation module, not an implemented marketplace.
+
+- Dataset: 12,284 English TweetEval test texts; true negative/positive subset: 6,347.
+- Native three-class models: baseline, BERTweet and XLM-R. Production is binary, with provisional label semantics and unresolved tokenizer compatibility.
+- Six metadata features define 14 descriptive groups per model; metadata does not change model inputs.
+- Preferred future production model: baseline. Preferred new candidate and alternative: BERTweet.
+- Human review remains part of the intended use. Representative KKU’3S data, intended languages, latency and cost require validation before release.
+- A dual-model disagreement-resolution module is a possible future extension, not a completed feature.
+
+See [model selection](model_selection.md), [shipping criteria](shipping_criteria.md), [metrics conclusion](metrics_conclusion.md) and the [final notebook](../FINAL_RUN.ipynb).

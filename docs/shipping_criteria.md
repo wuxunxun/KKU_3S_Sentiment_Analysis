@@ -99,8 +99,14 @@ Groups can overlap. Do not add their error counts or average their scores into a
 
 **Straightforward replacement:** Match or exceed baseline on Macro F1, negative recall and negative precision, with an improvement in at least one. Review per-class results and metadata regressions before accepting the replacement.
 
-**Trade-off decision:** If core metrics move in opposite directions, explain the changes in missed negatives, false alerts and relevant groups. Justify the choice using the intended use and the team's priorities. The criteria do not automatically accept that exchange. **Choosing baseline is a valid outcome** when no candidate provides a clear improvement and the production model performs worse.
+**Trade-off decision:** If core metrics move in opposite directions, explain the changes in missed negatives, false alerts and relevant groups. Justify the choice using the intended use and the team's priorities. The criteria do not automatically accept that exchange. **Baseline is the preferred model for future integration; BERTweet is the preferred new candidate and production alternative.** Neither new candidate dominates baseline on all three core metrics. This is a benchmark-based preference, not proof of production readiness or statistically significant superiority. Baseline is the comparison reference, not the existing production version.
 
 **Production comparison:** Production has only negative/positive outputs. Compare it with candidates only under the same PN protocol, after verifying its label mapping and tokenizer compatibility. Do not compare its PN score directly with native three-class scores.
 
 **Before release:** These benchmark criteria support model selection. Improving on baseline does not by itself establish that a model is suitable for deployment. Confirm performance on representative KKU’3S feedback, including the intended language(s), and retain human review before approving release.
+
+## 5. Integration and recovery
+
+After representative-data validation, integrate the preferred model using the same tokenizer, preprocessing, native label mapping and length limit as the final notebook. Return sentiment and confidence for administrator review. Monitor negative false alerts/missed negatives, neutral recall, metadata groups, latency and inference failures. Retain a versioned previous configuration for rollback if quality or service degrades. Actual deployment and rollback have not been implemented in this project evaluation.
+
+Evidence: [final notebook](../FINAL_RUN.ipynb) and [metrics conclusion](metrics_conclusion.md). Historical notebooks are retained under [history_sources](history_sources/).

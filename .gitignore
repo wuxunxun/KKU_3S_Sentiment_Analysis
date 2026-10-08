@@ -31,3 +31,4 @@ Thumbs.db
 
 # Include dependency specification
 !/requirements.txt
+!/requirements-final.txt

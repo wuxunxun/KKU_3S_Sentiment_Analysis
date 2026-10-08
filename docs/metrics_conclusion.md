@@ -15,7 +15,7 @@ This conclusion uses the recorded results of the current four-model evaluation.
 | Protocol | Examples | True class support | Eligible models |
 | --- | --- | --- | --- |
 | A. Native three-class | 12,284 | Negative 3,972; neutral 5,937; positive 2,375 | Baseline, BERTweet, XLM-R |
-| B. Shared PN | 6,347 | Negative 3,972; positive 2,375 | All four models |
+| B. Adapted PN comparison | 6,347 | Negative 3,972; positive 2,375 | All four models |
 
 **Protocol A:** Use each three-class model’s native prediction on the full test set. Production cannot output neutral, so it is not ranked as a native three-class candidate.
 
@@ -101,7 +101,7 @@ A false alert (FP) is a non-negative text flagged as negative. A false negative 
 
 Compared with baseline, BERTweet creates **108 fewer false alerts but misses 18 more negatives**. XLM-R misses **249 fewer negatives but creates 719 more false alerts**. Neutral texts account for most false alerts in all three models. For a platform review workflow, these counts describe the exchange between finding complaints and increasing review workload.
 
-## 3. Protocol B — shared negative/positive results
+## 3. Protocol B — adapted negative/positive comparison
 
 ### 3.1 Overall metrics for all four models
 
@@ -222,13 +222,21 @@ The three alternatives outperform production on every displayed PN slice at the 
 
 | Model | Main strength | Main limitation | Conclusion |
 | --- | --- | --- | --- |
-| Baseline | Highest observed three-class Macro F1; stronger priority-group negative recall than BERTweet; strong PN results. | More false alerts than BERTweet; weaker short-text negative precision/recall. | Preferred model for the next validation stage. |
-| BERTweet | Best overall negative precision; fewer false alerts; strong short-text results and competitive PN performance. | Slightly lower three-class Macro F1 and recall; lower priority-group recall than baseline. | Close alternative if reducing review workload has greater priority. |
+| Baseline | Highest observed three-class Macro F1; stronger priority-group negative recall than BERTweet; strong PN results. | More false alerts than BERTweet; weaker short-text negative precision/recall. | Preferred model for future production integration, subject to representative-data validation. |
+| BERTweet | Best overall negative precision; fewer false alerts; strong short-text results and competitive PN performance. | Slightly lower three-class Macro F1 and recall; lower priority-group recall than baseline. | Preferred new candidate and production alternative; reduces review workload. |
 | XLM-R | Highest native three-class negative recall. | Many more false alerts, lower neutral recall and weaker Macro F1; PN Macro F1 below baseline/BERTweet. | Suitable for further investigation only if higher negative recall justifies the extra review burden. |
 | Production GPT-2 | Serves as the existing binary reference. | No neutral output; weak recorded PN results; provisional mapping and compatibility checks remain. | Investigate its configuration; do not use its PN score as a native three-class benchmark. |
 
-**Against the updated shipping criteria:** Neither BERTweet nor XLM-R matches or improves baseline on all three core metrics simultaneously. BERTweet improves precision but loses some recall and Macro F1; XLM-R improves recall but loses precision and Macro F1. Retaining baseline is therefore consistent with the reference-based rule. Metadata results identify trade-offs rather than requiring a model to win every group.
+**Against the updated shipping criteria:** Neither BERTweet nor XLM-R matches or improves baseline on all three core metrics simultaneously. BERTweet improves precision but loses some recall and Macro F1; XLM-R improves recall but loses precision and Macro F1. Selecting baseline for future integration is consistent with the reference-based comparison. Baseline is the reference, not the current production model; this does not imply retaining production. Metadata results identify trade-offs rather than requiring a model to win every group.
 
 Macro F1 supports balanced sentiment summaries and reputation assessment. Negative recall helps surface negative feedback for review. Negative precision limits incorrect flags and review workload. Metadata analysis identifies text groups where these goals are less well served. Sentiment classification does not verify fraud, misconduct or the target of a complaint, and should not automatically trigger an accusation or penalty.
 
-**Final recommendation:** Prefer baseline for further validation, retain BERTweet as the closest alternative, and document XLM-R’s recall/false-alert trade-off. The recorded results support a model preference; deployment approval requires representative KKU’3S feedback, intended-language validation and human review.
+**Final selection preference:** Prefer baseline for future production integration and BERTweet as the best-balanced new candidate and production alternative. Document XLM-R’s recall/false-alert trade-off. The recorded results support a model preference; deployment approval requires representative KKU’3S feedback, intended-language validation and human review.
+
+## 8. Evidence and future work
+
+The canonical entry point is [FINAL_RUN.ipynb](../FINAL_RUN.ipynb). Metric tables are based on the [saved final predictions](../results/final_run/); no new model inference was performed to update this document. Historical notebooks under [history_sources](history_sources/) are not final entry points.
+
+The 14-group plots are available in [asset/images](../asset/images/). PN figures use adapted decoding and must not be compared directly with native three-class figures.
+
+A future dual-model workflow could use baseline and BERTweet with a decision module for disagreements, subject to time, cost and independent validation. This has not been implemented.

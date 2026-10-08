@@ -1,0 +1,13 @@
+# Direct dependencies matching the recorded final runtime.
+# PyTorch's CUDA wheel/runtime depends on the execution environment.
+# tqdm was used, but its original version was not recorded.
+torch==2.11.0
+datasets==4.8.5
+transformers==5.17.0
+pandas==2.2.3
+numpy==2.1.3
+scikit-learn==1.6.1
+matplotlib==3.10.0
+wandb==0.28.1
+emoji==0.6.0
+tqdm
