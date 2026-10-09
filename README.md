@@ -215,53 +215,80 @@ BERTweet achieves the highest Negative F1, while XLM-R achieves the highest Nega
 
 ## 10. Metadata Findings
 
-Metadata slice analysis provides additional information about model behavior across different text characteristics.
+Metadata slice analysis provides additional information about model behavior across different text characteristics. The analysis covers six metadata features: emoji, uppercase ratio, negation, contrast, text length, and repeated characters.
+
+### Emoji
+
+For texts containing emoji:
+
+| **Model** | **Macro F1** |
+| --------- | ------------ |
+| Baseline  | 72.46%       |
+| BERTweet  | **72.67%**   |
+| XLM-R     | 67.49%       |
+
+BERTweet achieves the highest Macro F1 for texts containing emoji, although its performance is only slightly higher than the Baseline.
+
+### Uppercase Ratio
+
+Texts are grouped into three uppercase-ratio categories: None, Low, and High.
+
+| **Model** | **None** | **Low** | **High** |
+| --------- | -------- | ------- | -------- |
+| Baseline  | 71.36%   | **72.48%** | **71.61%** |
+| BERTweet  | **71.82%** | 72.38% | 71.20% |
+| XLM-R     | 67.86%   | 67.36%  | 68.86% |
+
+Performance remains relatively stable across uppercase-ratio groups. BERTweet achieves the highest Macro F1 for texts with no uppercase letters, while the Baseline slightly leads in the Low and High uppercase groups.
 
 ### Negation
 
 For texts containing negation:
 
-| Model | Macro F1 | Negative Recall |
-|---|---:|---:|
-| Baseline | 67.92% | 86.94% |
-| BERTweet | 67.35% | 83.60% |
-| XLM-R | 59.80% | 91.36% |
+| **Model** | **Macro F1** | **Negative Recall** |
+| --------- | ------------ | ------------------- |
+| Baseline  | **67.92%**   | 86.94%              |
+| BERTweet  | 67.35%       | 83.60%              |
+| XLM-R     | 59.80%       | **91.36%**          |
 
-XLM-R achieves the highest Negative Recall for texts containing negation, but its Macro F1 is substantially lower.
+XLM-R achieves the highest Negative Recall for texts containing negation, but it also has the lowest Macro F1.
 
 ### Contrast
 
 For texts containing contrast words:
 
-| Model | Macro F1 | Negative Recall |
-|---|---:|---:|
-| Baseline | 69.27% | 83.50% |
-| BERTweet | **69.74%** | 79.80% |
-| XLM-R | 62.20% | **88.22%** |
+| **Model** | **Macro F1** | **Negative Recall** |
+| --------- | ------------ | ------------------- |
+| Baseline  | 69.27%       | 83.50%              |
+| BERTweet  | **69.74%**   | 79.80%              |
+| XLM-R     | 62.20%       | **88.22%**          |
 
-BERTweet achieves slightly higher Macro F1 than the Baseline, while XLM-R achieves the highest Negative Recall.
+BERTweet achieves the highest Macro F1 for texts containing contrast words, while XLM-R achieves the highest Negative Recall.
 
 ### Text Length
 
-For short texts:
+Performance is compared across Short, Medium, and Long text groups.
 
-| Model | Macro F1 | Negative Precision | Negative Recall |
-|---|---:|---:|---:|
-| Baseline | 71.56% | 59.45% | 75.00% |
-| BERTweet | 71.55% | **60.97%** | **76.49%** |
-| XLM-R | 67.40% | 49.38% | 82.34% |
+| **Model** | **Short** | **Medium** | **Long** |
+| --------- | --------- | ---------- | -------- |
+| Baseline  | **71.56%** | **71.79%** | **71.21%** |
+| BERTweet  | 71.55%    | 71.51%     | 71.19%   |
+| XLM-R     | 67.40%    | 68.65%     | 65.03%   |
 
-BERTweet provides slightly higher Negative Precision and Negative Recall than the Baseline for short texts, although their Macro F1 values are almost identical.
+Baseline and BERTweet perform similarly across text-length groups. All three models show their lowest text-length Macro F1 on long texts.
 
 ### Repeated Characters
 
-The `has_repeated_chars = True` group contains only **132 samples**. BERTweet achieves a Macro F1 of 74.43%, compared with 73.48% for the Baseline.
+For texts containing repeated characters:
 
-Because of the relatively small sample size, this result should be interpreted cautiously.
+| **Model** | **Macro F1** |
+| --------- | ------------ |
+| Baseline  | 73.48%       |
+| BERTweet  | **74.43%**   |
+| XLM-R     | 69.49%       |
 
-### Emoji and Uppercase
+BERTweet achieves the highest Macro F1 for texts containing repeated characters. However, this slice contains only **132 samples**, so the result should be interpreted with caution.
 
-Performance differences for emoji and uppercase groups vary between the models. These metadata slices are used to identify potential differences in model behavior, but they do not by themselves determine the final model selection.
 
 Metadata groups may overlap, so each slice is analyzed independently.
 
